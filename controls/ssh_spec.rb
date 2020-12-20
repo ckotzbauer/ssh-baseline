@@ -24,6 +24,7 @@ end
 
 ssh_custom_user = attribute('ssh_custom_user', value: 'root', description: 'The SSH user is not always root. It must be an unprivileged user in a container')
 ssh_custom_path = attribute('ssh_custom_path', value: '/etc/ssh', description: 'Sometimes ssh configuration files are present in another location and ssh use them with the -f flag')
+ssh_custom_port = attribute('ssh_custom_port', value: '22', description: 'The SSH port is not always 22.')
 
 control 'ssh-01' do
   impact 1.0
@@ -59,7 +60,7 @@ control 'ssh-03' do
   title 'Client: Specify expected ssh port'
   desc 'Always specify which port the SSH client should connect. Prevent unexpected settings.'
   describe ssh_config(ssh_custom_path + '/ssh_config') do
-    its('Port') { should eq('22') }
+    its('Port') { should eq(ssh_custom_port) }
   end
 end
 
