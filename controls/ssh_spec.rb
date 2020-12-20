@@ -60,7 +60,7 @@ control 'ssh-03' do
   title 'Client: Specify expected ssh port'
   desc 'Always specify which port the SSH client should connect. Prevent unexpected settings.'
   describe ssh_config(ssh_custom_path + '/ssh_config') do
-    its('Port') { should eq(ssh_custom_port) }
+    its('Port') { should cmp(ssh_custom_port) }
   end
 end
 
